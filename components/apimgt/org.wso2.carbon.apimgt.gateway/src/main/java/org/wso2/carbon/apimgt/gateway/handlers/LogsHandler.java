@@ -42,6 +42,16 @@ import javax.xml.stream.XMLStreamException;
  */
 public class LogsHandler extends AbstractSynapseHandler {
     private static final Log log = LogFactory.getLog(APIConstants.CORRELATION_LOGGER);
+    private static final String AUTH_HEADER = "AUTH_HEADER";
+    private static final String ORG_ID_HEADER = "ORG_ID_HEADER";
+    private static final String SRC_ID_HEADER = "SRC_ID_HEADER";
+    private static final String APP_ID_HEADER = "APP_ID_HEADER";
+    private static final String UUID_HEADER = "UUID_HEADER";
+    private static final String CORRELATION_ID_HEADER = "CORRELATION_ID_HEADER";
+    private static final String REQUEST_BODY_SIZE_ERROR =
+            "Error occurred while building the message to calculate" + " the response body size";
+    private static final String REQUEST_EVENT_PUBLICATION_ERROR = "Cannot publish request event. ";
+    private static final String RESPONSE_EVENT_PUBLICATION_ERROR = "Cannot publish response event. ";
     private static boolean isEnabled = false;
     private static boolean isSet = false;
     private String apiName = null;
@@ -57,20 +67,8 @@ public class LogsHandler extends AbstractSynapseHandler {
     private String applicationName = null;
     private String apiConsumerKey = null;
 
-    private static final String AUTH_HEADER = "AUTH_HEADER";
-    private static final String ORG_ID_HEADER = "ORG_ID_HEADER";
-    private static final String SRC_ID_HEADER = "SRC_ID_HEADER";
-    private static final String APP_ID_HEADER = "APP_ID_HEADER";
-    private static final String UUID_HEADER = "UUID_HEADER";
-    private static final String CORRELATION_ID_HEADER = "CORRELATION_ID_HEADER";
-
-    private static final String REQUEST_BODY_SIZE_ERROR = "Error occurred while building the message to calculate" +
-            " the response body size";
-    private static final String REQUEST_EVENT_PUBLICATION_ERROR = "Cannot publish request event. ";
-    private static final String RESPONSE_EVENT_PUBLICATION_ERROR = "Cannot publish response event. ";
-
     private boolean isEnabled() {
-        if(!isSet) {
+        if (!isSet) {
             String config = System.getProperty(APIConstants.ENABLE_CORRELATION_LOGS);
             if (config != null && !config.equals("")) {
                 isEnabled = Boolean.parseBoolean(config);
@@ -151,10 +149,9 @@ public class LogsHandler extends AbstractSynapseHandler {
                     String uuIdHeader = (String) messageContext.getProperty(UUID_HEADER);
                     String correlationIdHeader = (String) messageContext.getProperty(CORRELATION_ID_HEADER);
                     MDC.put(APIConstants.CORRELATION_ID, correlationIdHeader);
-                    log.info(beTotalLatency + "|HTTP|" + apiName + "|" + apiMethod + "|" + apiCTX + apiElectedRsrc
-                            + "|" + apiTo + "|" + authHeader + "|" + orgIdHeader + "|" + SrcIdHeader
-                            + "|" + applIdHeader + "|" + uuIdHeader + "|" + requestSize
-                            + "|" + responseSize + "|" + apiResponseSC + "|"
+                    log.info(beTotalLatency + "|HTTP|" + apiName + "|" + apiMethod + "|" + apiCTX + apiElectedRsrc + "|"
+                            + apiTo + "|" + authHeader + "|" + orgIdHeader + "|" + SrcIdHeader + "|" + applIdHeader
+                            + "|" + uuIdHeader + "|" + requestSize + "|" + responseSize + "|" + apiResponseSC + "|"
                             + applicationName + "|" + apiConsumerKey + "|" + responseTime);
                 } catch (Exception e) {
                     log.error(RESPONSE_EVENT_PUBLICATION_ERROR + e.getMessage(), e);
