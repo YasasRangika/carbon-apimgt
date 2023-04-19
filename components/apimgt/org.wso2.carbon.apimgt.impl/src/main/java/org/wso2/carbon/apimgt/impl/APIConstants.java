@@ -2635,7 +2635,8 @@ public final class APIConstants {
         CERTIFICATE,
         GA_CONFIG,
         KEY_TEMPLATE,
-        CORRELATION_CONFIG
+        CORRELATION_CONFIG,
+        GATEWAY_POLICY
     }
 
     // Supported Event Types
@@ -2668,7 +2669,9 @@ public final class APIConstants {
         CUSTOM_POLICY_ADD,
         CUSTOM_POLICY_DELETE,
         CUSTOM_POLICY_UPDATE,
-        UPDATE_CORRELATION_CONFIGS
+        UPDATE_CORRELATION_CONFIGS,
+        DEPLOY_POLICY_MAPPING_IN_GATEWAY,
+        REMOVE_POLICY_MAPPING_FROM_GATEWAY
     }
 
     public enum EventAction {
