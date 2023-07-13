@@ -6448,10 +6448,9 @@ class APIProviderImpl extends AbstractAPIManager implements APIProvider {
     }
 
     @Override
-    public List<OperationPolicyData> getGatewayPolicyDataListByPolicyId(String policyMappingUUID, String organization,
+    public List<OperationPolicyData> getGatewayPolicyDataListByPolicyId(String policyMappingUUID,
             boolean isWithPolicyDefinition) throws APIManagementException {
-        return apiMgtDAO.getAllGatewayPoliciesDataForPolicyMappingUUID(policyMappingUUID, organization,
-                isWithPolicyDefinition);
+        return apiMgtDAO.getAllGatewayPoliciesDataForPolicyMappingUUID(policyMappingUUID, isWithPolicyDefinition);
     }
 
     @Override
