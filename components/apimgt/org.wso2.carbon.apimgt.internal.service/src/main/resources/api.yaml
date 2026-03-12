@@ -207,6 +207,10 @@ paths:
           description: API not found
         default:
           description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /apis/{apiId}/gateway-deployments:
     post:
       tags:
@@ -262,6 +266,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /subscription-plans:
+    get:
+      tags:
+        - Subscriptions
+      summary: List subscription plans (stub)
+      description: |
+        Temporary stub endpoint for platform gateway bulk sync.
+        Returns an empty list in this APIM version.
+      operationId: subscriptionPlansGet
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
         default:
           description: Unexpected error
           content:
