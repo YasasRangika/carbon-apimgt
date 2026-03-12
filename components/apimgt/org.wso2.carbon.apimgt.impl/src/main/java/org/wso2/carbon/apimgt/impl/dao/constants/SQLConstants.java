@@ -5254,5 +5254,8 @@ public class SQLConstants {
                 "SELECT ID, PAYLOAD FROM AM_GW_PLATFORM_DEPLOYMENT_EVENT WHERE GATEWAY_ID = ? AND DELIVERED_AT IS NULL ORDER BY CREATED_AT";
         public static final String UPDATE_MARK_DELIVERED =
                 "UPDATE AM_GW_PLATFORM_DEPLOYMENT_EVENT SET DELIVERED_AT = ? WHERE ID = ?";
+        /** Delete delivered events older than the given timestamp to prevent unbounded table growth. */
+        public static final String DELETE_DELIVERED_EVENTS_OLDER_THAN =
+                "DELETE FROM AM_GW_PLATFORM_DEPLOYMENT_EVENT WHERE DELIVERED_AT IS NOT NULL AND DELIVERED_AT < ?";
     }
 }

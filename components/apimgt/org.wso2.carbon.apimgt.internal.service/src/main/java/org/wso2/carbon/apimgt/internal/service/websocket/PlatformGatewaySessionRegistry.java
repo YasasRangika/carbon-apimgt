@@ -22,6 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -107,6 +109,20 @@ public class PlatformGatewaySessionRegistry {
         if (log.isDebugEnabled()) {
             log.debug("Closed and unregistered WebSocket session for gateway: " + gatewayId);
         }
+    }
+
+    /**
+     * Returns the set of gateway IDs that currently have an open WebSocket session on this CP.
+     * Used by the pending-events scheduler to push events to already-connected gateways.
+     */
+    public Set<String> getConnectedGatewayIds() {
+        Set<String> ids = new HashSet<>();
+        for (Map.Entry<String, Session> e : gatewaySessions.entrySet()) {
+            if (e.getValue() != null && e.getValue().isOpen()) {
+                ids.add(e.getKey());
+            }
+        }
+        return Collections.unmodifiableSet(ids);
     }
 
     /**
