@@ -155,10 +155,17 @@ public final class PlatformGatewayAPIYamlConverter {
         }
         spec.upstream = upstream;
 
-        // API-level policies
+        // API-level policies (request/response/fault from DB)
         List<OperationPolicy> apiPolicies = api.getApiPolicies();
         if (apiPolicies != null && !apiPolicies.isEmpty()) {
             for (OperationPolicy policy : apiPolicies) {
+                spec.policies.add(toPolicyDto(policy));
+            }
+        }
+        // API-level Policy Hub policies (Separate property, not in AM_API_OPERATION_POLICY_MAPPING)
+        List<OperationPolicy> apiHubPolicies = api.getHubPolicies();
+        if (apiHubPolicies != null && !apiHubPolicies.isEmpty()) {
+            for (OperationPolicy policy : apiHubPolicies) {
                 spec.policies.add(toPolicyDto(policy));
             }
         }
@@ -278,6 +285,7 @@ public final class PlatformGatewayAPIYamlConverter {
                 }
             }
             List<OperationPolicy> opPolicies = template.getOperationPolicies();
+            List<OperationPolicy> opHubPolicies = template.getHubPolicies();
             for (String method : verbs) {
                 String m = (method == null || method.isEmpty()) ? "GET" : method.toUpperCase();
                 OperationYaml op = new OperationYaml();
@@ -285,6 +293,14 @@ public final class PlatformGatewayAPIYamlConverter {
                 op.path = path;
                 if (opPolicies != null && !opPolicies.isEmpty()) {
                     for (OperationPolicy policy : opPolicies) {
+                        PolicyDto dto = toPolicyDto(policy);
+                        if (dto != null) {
+                            op.policies.add(dto);
+                        }
+                    }
+                }
+                if (opHubPolicies != null && !opHubPolicies.isEmpty()) {
+                    for (OperationPolicy policy : opHubPolicies) {
                         PolicyDto dto = toPolicyDto(policy);
                         if (dto != null) {
                             op.policies.add(dto);
