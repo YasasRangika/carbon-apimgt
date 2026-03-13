@@ -31,7 +31,8 @@ import javax.websocket.Session;
 
 /**
  * Registry of platform gateway WebSocket sessions by gateway ID.
- * Used by {@link WebSocketPlatformGatewayDeploymentDispatcher} to push deploy/undeploy messages.
+ * Used by {@link WebSocketPlatformGatewayDeploymentDispatcher} to push deploy/undeploy messages
+ * and by {@link PlatformGatewayAPIKeyEventBroadcaster} to push apikey.created/updated/revoked events.
  */
 public class PlatformGatewaySessionRegistry {
 

@@ -73,8 +73,9 @@ public class PlatformGatewayDeploymentDispatcherListener implements ServletConte
         try {
             WebSocketPlatformGatewayDeploymentDispatcher dispatcher = new WebSocketPlatformGatewayDeploymentDispatcher();
             ServiceReferenceHolder.getInstance().setPlatformGatewayDeploymentDispatcher(dispatcher);
+            ServiceReferenceHolder.getInstance().setPlatformGatewayAPIKeyEventService(new PlatformGatewayAPIKeyEventServiceImpl());
             if (log.isInfoEnabled()) {
-                log.info("Platform gateway deployment dispatcher registered (WebSocket push enabled)");
+                log.info("Platform gateway deployment dispatcher and API key event service registered (WebSocket push enabled)");
             }
             scheduleEventTableCleanup();
             schedulePushPendingToConnectedGateways();
@@ -181,12 +182,13 @@ public class PlatformGatewayDeploymentDispatcherListener implements ServletConte
         }
         try {
             ServiceReferenceHolder.getInstance().setPlatformGatewayDeploymentDispatcher(null);
+            ServiceReferenceHolder.getInstance().setPlatformGatewayAPIKeyEventService(null);
             if (log.isDebugEnabled()) {
-                log.debug("Platform gateway deployment dispatcher unregistered");
+                log.debug("Platform gateway deployment dispatcher and API key event service unregistered");
             }
         } catch (Exception e) {
             if (log.isDebugEnabled()) {
-                log.debug("Error unregistering dispatcher", e);
+                log.debug("Error unregistering platform gateway services", e);
             }
         }
     }
