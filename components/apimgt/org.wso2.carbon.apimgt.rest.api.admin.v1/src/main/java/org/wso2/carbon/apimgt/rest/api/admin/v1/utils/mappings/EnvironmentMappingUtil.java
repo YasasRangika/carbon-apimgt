@@ -21,7 +21,6 @@ import org.wso2.carbon.apimgt.api.dto.GatewayVisibilityPermissionConfigurationDT
 import org.wso2.carbon.apimgt.api.model.Environment;
 import org.wso2.carbon.apimgt.api.model.PlatformGateway;
 import org.wso2.carbon.apimgt.api.model.VHost;
-import org.wso2.carbon.apimgt.impl.dto.PlatformGatewayConnectConfig;
 import org.wso2.carbon.apimgt.impl.internal.ServiceReferenceHolder;
 import org.wso2.carbon.apimgt.rest.api.admin.v1.dto.AdditionalPropertyDTO;
 import org.wso2.carbon.apimgt.rest.api.admin.v1.dto.EnvironmentDTO;
@@ -145,13 +144,9 @@ public class EnvironmentMappingUtil {
      * Resolve Universal Gateway version from config (apim.universal_gateway.version in api-manager.xml).
      */
     private static String resolveUniversalGatewayVersion() {
-        PlatformGatewayConnectConfig config = ServiceReferenceHolder.getInstance()
-                .getAPIManagerConfigurationService().getAPIManagerConfiguration().getPlatformGatewayConnectConfig();
-        if (config == null) {
-            return null;
-        }
-        String global = config.getUniversalGatewayVersion();
-        return (global != null && !global.isEmpty()) ? global : null;
+        String v = ServiceReferenceHolder.getInstance()
+                .getAPIManagerConfigurationService().getAPIManagerConfiguration().getUniversalGatewayVersion();
+        return (v != null && !v.isEmpty()) ? v : null;
     }
 
     /**

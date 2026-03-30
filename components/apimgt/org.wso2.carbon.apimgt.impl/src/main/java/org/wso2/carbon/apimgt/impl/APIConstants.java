@@ -3958,14 +3958,13 @@ public final class APIConstants {
         public static final String CLEANUP_INTERVAL_SECONDS = "CleanupIntervalSeconds";
         public static final int DEFAULT_CLEANUP_STARTUP_DELAY = 60;
 
-        public static final String PLATFORM_GATEWAY_CONNECT_CONFIGURATION = "PlatformGatewayConnectConfiguration";
-        public static final String CONNECT_GATEWAYS = "ConnectGateways";
-        public static final String CONNECT = "Connect";
-        public static final String REGISTRATION_TOKEN = "RegistrationToken";
-        public static final String CONNECT_NAME = "Name";
-        public static final String CONNECT_DISPLAY_NAME = "DisplayName";
-        public static final String CONNECT_DESCRIPTION = "Description";
-        public static final String CONNECT_URL = "Url";
+        /** deployment.toml apim.universal_gateway.version → api-manager.xml (under GatewayNotificationConfiguration). */
+        public static final String UNIVERSAL_GATEWAY_CONFIGURATION = "UniversalGatewayConfiguration";
+        public static final String UNIVERSAL_GATEWAY_VERSION_ELEMENT = "UniversalGatewayVersion";
+        /**
+         * Legacy wrapper from older packs; only {@link #UNIVERSAL_GATEWAY_VERSION_ELEMENT} is still read for migration.
+         */
+        public static final String LEGACY_UNIVERSAL_GATEWAY_CONFIGURATION_WRAPPER = "PlatformGatewayConnectConfiguration";
 
         public enum GatewayRegistrationResponse {
             NOT_RESPONDED,
